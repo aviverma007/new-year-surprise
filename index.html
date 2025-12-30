@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>For Aaditi ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 <style>
 body{
   margin:0;
-  background:#111;
+  background:#000;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -16,7 +16,6 @@ body{
   font-family:Arial, sans-serif;
 }
 
-/* MOBILE APP */
 .app{
   width:390px;
   height:780px;
@@ -27,7 +26,7 @@ body{
   box-shadow:0 0 40px rgba(255,0,90,.5);
 }
 
-/* PAGES */
+/* Pages */
 .page{
   position:absolute;
   inset:0;
@@ -35,7 +34,7 @@ body{
 }
 .page.active{display:block}
 
-/* PAGE 1 */
+/* Page 1 */
 .loader{
   height:100%;
   display:flex;
@@ -52,16 +51,16 @@ body{
   50%{transform:scale(1.15)}
 }
 
-/* DRAGGABLE IMAGES */
+/* Draggable images */
 .drag{
   position:absolute;
-  width:220px;
+  width:230px;
   border-radius:18px;
-  cursor:grab;
   z-index:10;
+  touch-action:none; /* IMPORTANT */
 }
 
-/* CENTER BUTTON (HIDDEN UNDER IMAGES) */
+/* Center hidden button */
 .center-btn{
   position:absolute;
   top:50%;
@@ -73,10 +72,10 @@ body{
   background:#ff4d6d;
   color:white;
   font-size:18px;
-  z-index:1; /* IMPORTANT */
+  z-index:1;
 }
 
-/* FLOATING HEARTS */
+/* Floating hearts */
 .float{
   position:absolute;
   bottom:-20px;
@@ -88,7 +87,7 @@ body{
   to{transform:translateY(-850px)}
 }
 
-/* LETTER */
+/* Letter */
 .letter{
   color:white;
   padding:26px;
@@ -115,7 +114,7 @@ body{
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
   <div class="loader">
-    <div class="heart">❤️</div>
+    <div class="heart" id="holdHeart">❤️</div>
     <div id="percent">Hold my heart</div>
   </div>
 </div>
@@ -139,10 +138,8 @@ body{
     You bring warmth, comfort, and happiness into my life without
     even trying. With you, I feel calm, understood, and complete.
     Every smile of yours feels like home to me. No matter what life
-    throws our way, I promise to stand by you, support you, and love
-    you endlessly. You are not just someone I love — you are the
-    reason love feels so beautiful to me. I’m always with you,
-    today, tomorrow, and forever. ❤️<br><br>
+    brings, I promise to stand by you, support you, and love you
+    endlessly. I am always with you — today, tomorrow, and forever. ❤️<br><br>
     — Avi
   </div>
 </div>
@@ -150,12 +147,10 @@ body{
 </div>
 
 <script>
+/* HOLD HEART */
 let hold=0, timer;
 const percent=document.getElementById("percent");
-
-/* HOLD HEART */
-document.querySelector(".heart").onmousedown=startHold;
-document.querySelector(".heart").ontouchstart=startHold;
+const heart=document.getElementById("holdHeart");
 
 function startHold(){
   timer=setInterval(()=>{
@@ -169,8 +164,10 @@ function startHold(){
     }
   },40);
 }
-document.onmouseup=()=>clearInterval(timer);
-document.ontouchend=()=>clearInterval(timer);
+heart.addEventListener("touchstart",startHold);
+heart.addEventListener("mousedown",startHold);
+document.addEventListener("touchend",()=>clearInterval(timer));
+document.addEventListener("mouseup",()=>clearInterval(timer));
 
 /* PAGE SWITCH */
 function openPage(n){
@@ -179,18 +176,32 @@ function openPage(n){
   if(n===3)loadMemories();
 }
 
-/* DRAG LOGIC */
-function drag(el){
-  let x,y;
-  el.onmousedown=e=>{
-    x=e.clientX;y=e.clientY;
+/* ✅ FIXED MOBILE DRAG */
+function makeDraggable(el){
+  let startX=0,startY=0;
+
+  el.addEventListener("touchstart",e=>{
+    const t=e.touches[0];
+    startX=t.clientX - el.offsetLeft;
+    startY=t.clientY - el.offsetTop;
+  });
+
+  el.addEventListener("touchmove",e=>{
+    e.preventDefault();
+    const t=e.touches[0];
+    el.style.left = (t.clientX - startX) + "px";
+    el.style.top  = (t.clientY - startY) + "px";
+  });
+
+  el.addEventListener("mousedown",e=>{
+    startX=e.clientX - el.offsetLeft;
+    startY=e.clientY - el.offsetTop;
     document.onmousemove=m=>{
-      el.style.left=el.offsetLeft+(m.clientX-x)+"px";
-      el.style.top=el.offsetTop+(m.clientY-y)+"px";
-      x=m.clientX;y=m.clientY;
+      el.style.left=(m.clientX-startX)+"px";
+      el.style.top =(m.clientY-startY)+"px";
     };
     document.onmouseup=()=>document.onmousemove=null;
-  };
+  });
 }
 
 /* PAGE 2 IMAGES */
@@ -208,7 +219,7 @@ function loadQuotes(){
     img.style.top="35%";
     img.style.left="25%";
     document.getElementById("p2").appendChild(img);
-    drag(img);
+    makeDraggable(img);
   });
 }
 
@@ -221,7 +232,7 @@ function loadMemories(){
     img.style.top="35%";
     img.style.left="25%";
     document.getElementById("p3").appendChild(img);
-    drag(img);
+    makeDraggable(img);
   }
 }
 
