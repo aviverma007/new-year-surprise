@@ -2,131 +2,81 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>For You ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Aaditi ❤️</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(-45deg,#ff5f9e,#ff85c1,#ff9acb,#ff6fae);
-  background-size:400% 400%;
-  animation:bg 12s ease infinite;
-  overflow:hidden;
-  color:white;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#000;color:#fff;overflow:hidden}
 
-@keyframes bg{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
+/* Pages */
+.page{position:absolute;width:100%;height:100%;display:none;justify-content:center;align-items:center;flex-direction:column}
+.show{display:flex}
 
-.page{
-  display:none;
-  height:100vh;
-  padding:20px;
-  text-align:center;
-}
-.page.active{display:block;}
-
-.title{
-  font-family:'Great Vibes',cursive;
-  font-size:46px;
-  margin-top:20px;
-}
-.subtitle{
-  font-size:16px;
-  opacity:.9;
-}
-
-/* Floating hearts */
+/* HEART LOADER */
 .heart{
-  position:absolute;
-  bottom:-20px;
-  font-size:20px;
-  opacity:.6;
-  animation:float 8s linear infinite;
-}
-@keyframes float{
-  to{transform:translateY(-120vh)}
-}
-
-/* Heart loader */
-.big-heart{
-  font-size:130px;
-  margin-top:80px;
-  animation:pulse 1.2s infinite;
+  font-size:120px;
   cursor:pointer;
+  user-select:none;
+  animation:pulse 1.2s infinite;
 }
 @keyframes pulse{
-  50%{transform:scale(1.25)}
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
+.loaderText{margin-top:20px;font-size:18px;opacity:.8}
+.progress{margin-top:10px;font-size:22px}
+
+/* FLOATING IMAGES */
+.float-img{
+  position:absolute;
+  width:260px;
+  border-radius:16px;
+  animation:float 10s infinite alternate ease-in-out;
+}
+@keyframes float{
+  from{transform:translateY(0)}
+  to{transform:translateY(-40px)}
 }
 
-.progress{
-  width:80%;
-  height:14px;
-  margin:30px auto;
-  background:rgba(255,255,255,.3);
-  border-radius:20px;
-  overflow:hidden;
-}
-.progress span{
-  display:block;
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#fff,#ffd700);
-}
-
-/* Images */
-#imageArea{
-  height:65vh;
-  overflow-y:auto;
-}
-.imgCard{
-  width:90%;
-  max-width:320px;
-  margin:18px auto;
-  border-radius:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,.35);
-  cursor:grab;
-  position:relative;
-  touch-action:none;
-}
-
-/* Buttons */
+/* BUTTON */
 .btn{
-  margin-top:20px;
-  padding:14px 36px;
-  font-size:18px;
+  margin-top:30px;
+  padding:14px 30px;
   border:none;
-  border-radius:40px;
-  background:#ff5f9e;
+  border-radius:30px;
+  background:#ff4d6d;
   color:white;
-  display:none;
+  font-size:16px;
   cursor:pointer;
 }
 
-/* Final slider */
-#slider{
-  width:90%;
-  max-width:340px;
-  margin:20px auto;
-  border-radius:22px;
-  overflow:hidden;
-  box-shadow:0 25px 50px rgba(0,0,0,.4);
+/* SLIDE IMAGES */
+.drag-img{
+  position:absolute;
+  width:240px;
+  border-radius:14px;
+  cursor:grab;
 }
-#slider img{width:100%}
 
+/* LETTER */
 .letter{
+  width:90%;
+  max-width:600px;
+  background:#111;
+  padding:25px;
+  border-radius:16px;
+  line-height:1.7;
+  font-size:16px;
+}
+.small-btn{
   margin-top:20px;
-  padding:20px;
-  font-size:15px;
-  line-height:1.6;
-  background:rgba(255,255,255,.15);
+  background:#222;
+  color:#fff;
+  border:1px solid #555;
+  padding:10px 20px;
   border-radius:20px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -134,134 +84,94 @@ body{
 <body>
 
 <!-- PAGE 1 -->
-<div class="page active" id="p1">
-  <div class="title">Aaditi ❤️</div>
-  <div class="subtitle">Hold my heart</div>
-  <div class="big-heart" id="heart">❤️</div>
-  <div class="progress"><span id="bar"></span></div>
+<div class="page show" id="p1">
+  <div class="heart" id="heart">❤️</div>
+  <div class="loaderText">Hold my heart</div>
+  <div class="progress" id="progress">0%</div>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="p2">
-  <div class="title">Our Feelings ✨</div>
-  <div class="subtitle">Slide each memory anywhere</div>
-  <div id="imageArea"></div>
-  <button class="btn" id="loveBtn">I Love You ❤️</button>
+  <img class="float-img" style="top:10%;left:5%" src="https://i.pinimg.com/736x/0e/8b/f2/0e8bf26f0e6f945e8e6b8166c81c6785.jpg">
+  <img class="float-img" style="top:20%;right:5%" src="https://www.yourtango.com/sites/default/files/2020/love-quotes-55.jpg">
+  <img class="float-img" style="bottom:20%;left:10%" src="https://i.pinimg.com/736x/cb/89/fc/cb89fc9c46765731a3b6455c17725eec.jpg">
+  <img class="float-img" style="bottom:10%;right:10%" src="https://www.goodmorningquote.com/wp-content/uploads/2015/05/Cute-Short-Love-Quotes-1.jpg">
+  <button class="btn" onclick="goTo(3)">🎁 Open Gift</button>
 </div>
 
 <!-- PAGE 3 -->
 <div class="page" id="p3">
-  <div class="title">Forever Us 💖</div>
+  <button class="small-btn" onclick="goTo(4)">↓ Read My Letter</button>
+</div>
 
-  <div id="slider">
-    <img id="slideImg" src="1.jpg">
-  </div>
-
+<!-- PAGE 4 -->
+<div class="page" id="p4">
   <div class="letter">
-    Aaditi, I don’t love you for one reason, I love you for a thousand little ones.
-    I love the way you smile without trying, the way you understand me even in silence,
-    and the way you make everything feel lighter just by being there.
-    With you, I don’t feel alone, I feel complete.
-    No matter where life takes us, I want you to know that I am always with you —
-    in your happiness, your struggles, your dreams, and your fears.
-    I believe in you, in us, and in everything we are yet to become.
-    This is my promise, today and always.
-    — Avi ❤️
+    My love,<br><br>
+    I don’t love you for just one reason — I love you for a million little ones.
+    The way you smile without trying, the way you care without asking, and the way
+    you make even ordinary moments feel special. With you, I feel understood,
+    supported, and truly at home. You make my days brighter and my heart calmer.
+    No matter where life takes us, I want you to know that I choose you — today,
+    tomorrow, and always. I promise to stand by you, celebrate you, and love you
+    in every version of life. You are my favorite feeling, my safest place,
+    and my forever person. ❤️
   </div>
 </div>
 
 <audio id="music" loop>
-  <source src="music.mp3" type="audio/mpeg">
+  <source src="music.mp3">
 </audio>
 
 <script>
-/* Floating hearts */
-for(let i=0;i<25;i++){
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=6+Math.random()*6+"s";
-  document.body.appendChild(h);
-}
-
-/* Heart loader */
-let hold=0, timer;
-const bar=document.getElementById("bar");
-const heart=document.getElementById("heart");
+let hold, progress=0;
+const prog=document.getElementById("progress");
+const music=document.getElementById("music");
 
 heart.onmousedown=heart.ontouchstart=()=>{
-  timer=setInterval(()=>{
-    hold+=2;
-    bar.style.width=hold+"%";
-    if(hold>=100){
-      clearInterval(timer);
-      showPage(2);
-      document.getElementById("music").play();
+  music.play();
+  hold=setInterval(()=>{
+    if(progress<100){
+      progress++;
+      prog.innerText=progress+"%";
+    }else{
+      clearInterval(hold);
+      goTo(2);
     }
   },40);
-};
-document.onmouseup=document.ontouchend=()=>clearInterval(timer);
+}
+heart.onmouseup=heart.ontouchend=()=>clearInterval(hold);
 
-/* Page 2 images (internet) */
-const urls=[
- "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
- "https://images.unsplash.com/photo-1517841905240-472988babdf9",
- "https://images.unsplash.com/photo-1518199266791-5375a83190b7",
- "https://images.unsplash.com/photo-1492724441997-5dc865305da7",
- "https://images.unsplash.com/photo-1511988617509-a57c8a288659"
-];
+function goTo(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
+  document.getElementById('p'+n).classList.add('show');
+  if(n===3)loadImages();
+}
 
-let moved=0;
-const area=document.getElementById("imageArea");
-urls.forEach(u=>{
-  let img=document.createElement("img");
-  img.src=u+"?w=600";
-  img.className="imgCard";
-  area.appendChild(img);
-  drag(img);
-});
+function loadImages(){
+  for(let i=1;i<=11;i++){
+    let img=document.createElement("img");
+    img.src=i+".jpg";
+    img.className="drag-img";
+    img.style.top=Math.random()*60+"%";
+    img.style.left=Math.random()*60+"%";
+    document.getElementById("p3").appendChild(img);
+    drag(img);
+  }
+}
 
 function drag(el){
-  let movedOnce=false,ox,oy;
-  el.onpointerdown=e=>{
-    el.setPointerCapture(e.pointerId);
-    ox=e.clientX-el.offsetLeft;
-    oy=e.clientY-el.offsetTop;
-    el.style.position="absolute";
-    if(!movedOnce){
-      movedOnce=true;
-      moved++;
-      if(moved===urls.length)
-        document.getElementById("loveBtn").style.display="inline-block";
+  let x,y,dx,dy;
+  el.onmousedown=e=>{
+    x=e.clientX;y=e.clientY;
+    document.onmousemove=m=>{
+      dx=m.clientX-x;dy=m.clientY-y;
+      el.style.left=el.offsetLeft+dx+"px";
+      el.style.top=el.offsetTop+dy+"px";
+      x=m.clientX;y=m.clientY;
     }
-  };
-  el.onpointermove=e=>{
-    if(e.pressure===0) return;
-    el.style.left=e.clientX-ox+"px";
-    el.style.top=e.clientY-oy+"px";
-  };
-}
-
-/* Love button */
-document.getElementById("loveBtn").onclick=()=>{
-  showPage(3);
-  startSlider();
-};
-
-/* Final slider */
-let idx=1;
-function startSlider(){
-  setInterval(()=>{
-    idx++; if(idx>11) idx=1;
-    document.getElementById("slideImg").src=idx+".jpg";
-  },2500);
-}
-
-/* Page switch */
-function showPage(n){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById("p"+n).classList.add("active");
+    document.onmouseup=()=>document.onmousemove=null;
+  }
 }
 </script>
 
