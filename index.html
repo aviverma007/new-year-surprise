@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>For Aaditi ❤️</title>
@@ -16,6 +16,7 @@ body{
   font-family:Arial, sans-serif;
 }
 
+/* MOBILE APP FRAME */
 .app{
   width:390px;
   height:780px;
@@ -23,10 +24,10 @@ body{
   border-radius:30px;
   position:relative;
   overflow:hidden;
-  box-shadow:0 0 40px rgba(255,0,90,.5);
+  box-shadow:0 0 40px rgba(255,0,90,.6);
 }
 
-/* Pages */
+/* PAGES */
 .page{
   position:absolute;
   inset:0;
@@ -34,7 +35,7 @@ body{
 }
 .page.active{display:block}
 
-/* Page 1 */
+/* PAGE 1 – HEART HOLD */
 .loader{
   height:100%;
   display:flex;
@@ -51,16 +52,16 @@ body{
   50%{transform:scale(1.15)}
 }
 
-/* Draggable images */
+/* DRAGGABLE IMAGES */
 .drag{
   position:absolute;
   width:230px;
   border-radius:18px;
   z-index:10;
-  touch-action:none; /* IMPORTANT */
+  touch-action:none;
 }
 
-/* Center hidden button */
+/* CENTER BUTTON (HIDDEN BEHIND IMAGES) */
 .center-btn{
   position:absolute;
   top:50%;
@@ -75,7 +76,7 @@ body{
   z-index:1;
 }
 
-/* Floating hearts */
+/* FLOATING HEARTS */
 .float{
   position:absolute;
   bottom:-20px;
@@ -87,7 +88,7 @@ body{
   to{transform:translateY(-850px)}
 }
 
-/* Letter */
+/* LOVE LETTER */
 .letter{
   color:white;
   padding:26px;
@@ -134,25 +135,34 @@ body{
   <div class="letter" id="letter">
     <button class="scroll-btn" onclick="scrollDown()">↓ Read My Heart</button>
     Aaditi,<br><br>
-    I love you for the way you make ordinary moments feel special.
-    You bring warmth, comfort, and happiness into my life without
-    even trying. With you, I feel calm, understood, and complete.
-    Every smile of yours feels like home to me. No matter what life
-    brings, I promise to stand by you, support you, and love you
-    endlessly. I am always with you — today, tomorrow, and forever. ❤️<br><br>
+    I love you for the way you turn ordinary moments into memories.
+    With you, everything feels warmer, calmer, and more meaningful.
+    You understand me without words and support me without conditions.
+    Your smile feels like home, and your presence gives me peace.
+    No matter where life takes us, I promise to stand beside you,
+    love you deeply, and choose you every single day.
+    I am always with you — today, tomorrow, and forever. ❤️<br><br>
     — Avi
   </div>
 </div>
 
 </div>
 
+<!-- 🎵 AUDIO -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-/* HOLD HEART */
+/* HEART HOLD + AUDIO */
 let hold=0, timer;
 const percent=document.getElementById("percent");
 const heart=document.getElementById("holdHeart");
 
 function startHold(){
+  const music=document.getElementById("bgMusic");
+  if(music.paused) music.play().catch(()=>{});
+
   timer=setInterval(()=>{
     hold++;
     percent.innerText=hold+"%";
@@ -173,38 +183,38 @@ document.addEventListener("mouseup",()=>clearInterval(timer));
 function openPage(n){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById("p"+n).classList.add("active");
-  if(n===3)loadMemories();
+  if(n===3) loadMemories();
 }
 
-/* ✅ FIXED MOBILE DRAG */
+/* DRAG FUNCTION (MOBILE + DESKTOP) */
 function makeDraggable(el){
-  let startX=0,startY=0;
+  let x=0,y=0;
 
   el.addEventListener("touchstart",e=>{
     const t=e.touches[0];
-    startX=t.clientX - el.offsetLeft;
-    startY=t.clientY - el.offsetTop;
+    x=t.clientX-el.offsetLeft;
+    y=t.clientY-el.offsetTop;
   });
 
   el.addEventListener("touchmove",e=>{
     e.preventDefault();
     const t=e.touches[0];
-    el.style.left = (t.clientX - startX) + "px";
-    el.style.top  = (t.clientY - startY) + "px";
+    el.style.left=(t.clientX-x)+"px";
+    el.style.top =(t.clientY-y)+"px";
   });
 
   el.addEventListener("mousedown",e=>{
-    startX=e.clientX - el.offsetLeft;
-    startY=e.clientY - el.offsetTop;
+    x=e.clientX-el.offsetLeft;
+    y=e.clientY-el.offsetTop;
     document.onmousemove=m=>{
-      el.style.left=(m.clientX-startX)+"px";
-      el.style.top =(m.clientY-startY)+"px";
+      el.style.left=(m.clientX-x)+"px";
+      el.style.top =(m.clientY-y)+"px";
     };
     document.onmouseup=()=>document.onmousemove=null;
   });
 }
 
-/* PAGE 2 IMAGES */
+/* PAGE 2 – QUOTE IMAGES */
 function loadQuotes(){
   const imgs=[
     "https://i.pinimg.com/736x/0e/8b/f2/0e8bf26f0e6f945e8e6b8166c81c6785.jpg",
@@ -223,7 +233,7 @@ function loadQuotes(){
   });
 }
 
-/* PAGE 3 IMAGES */
+/* PAGE 3 – YOUR IMAGES */
 function loadMemories(){
   for(let i=1;i<=11;i++){
     let img=document.createElement("img");
