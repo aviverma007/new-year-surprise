@@ -1,177 +1,247 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>For You ❤️</title>
+<title>For Aaditi ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#000;color:#fff;overflow:hidden}
+body{
+  margin:0;
+  background:#111;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:Arial, sans-serif;
+}
 
-/* Pages */
-.page{position:absolute;width:100%;height:100%;display:none;justify-content:center;align-items:center;flex-direction:column}
-.show{display:flex}
+/* MOBILE APP */
+.app{
+  width:390px;
+  height:780px;
+  background:black;
+  border-radius:30px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 40px rgba(255,0,90,.5);
+}
 
-/* HEART LOADER */
-.heart{
+/* PAGES */
+.page{
+  position:absolute;
+  inset:0;
+  display:none;
+}
+.page.active{display:block}
+
+/* PAGE 1 */
+.loader{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+}
+.loader .heart{
   font-size:120px;
-  cursor:pointer;
-  user-select:none;
   animation:pulse 1.2s infinite;
 }
 @keyframes pulse{
-  0%,100%{transform:scale(1)}
   50%{transform:scale(1.15)}
 }
-.loaderText{margin-top:20px;font-size:18px;opacity:.8}
-.progress{margin-top:10px;font-size:22px}
 
-/* FLOATING IMAGES */
-.float-img{
+/* DRAGGABLE IMAGES */
+.drag{
   position:absolute;
-  width:260px;
-  border-radius:16px;
-  animation:float 10s infinite alternate ease-in-out;
-}
-@keyframes float{
-  from{transform:translateY(0)}
-  to{transform:translateY(-40px)}
+  width:220px;
+  border-radius:18px;
+  cursor:grab;
+  z-index:10;
 }
 
-/* BUTTON */
-.btn{
-  margin-top:30px;
-  padding:14px 30px;
+/* CENTER BUTTON (HIDDEN UNDER IMAGES) */
+.center-btn{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  padding:16px 34px;
+  border-radius:40px;
   border:none;
-  border-radius:30px;
   background:#ff4d6d;
   color:white;
-  font-size:16px;
-  cursor:pointer;
+  font-size:18px;
+  z-index:1; /* IMPORTANT */
 }
 
-/* SLIDE IMAGES */
-.drag-img{
+/* FLOATING HEARTS */
+.float{
   position:absolute;
-  width:240px;
-  border-radius:14px;
-  cursor:grab;
+  bottom:-20px;
+  color:#ff4d6d;
+  opacity:.7;
+  animation:float 8s linear infinite;
+}
+@keyframes float{
+  to{transform:translateY(-850px)}
 }
 
 /* LETTER */
 .letter{
-  width:90%;
-  max-width:600px;
-  background:#111;
-  padding:25px;
-  border-radius:16px;
+  color:white;
+  padding:26px;
+  height:100%;
+  overflow-y:auto;
   line-height:1.7;
-  font-size:16px;
 }
-.small-btn{
-  margin-top:20px;
-  background:#222;
-  color:#fff;
-  border:1px solid #555;
-  padding:10px 20px;
+.scroll-btn{
+  display:block;
+  margin:20px auto;
+  padding:10px 22px;
   border-radius:20px;
-  cursor:pointer;
+  border:1px solid #555;
+  background:#222;
+  color:white;
 }
 </style>
 </head>
 
 <body>
 
+<div class="app">
+
 <!-- PAGE 1 -->
-<div class="page show" id="p1">
-  <div class="heart" id="heart">❤️</div>
-  <div class="loaderText">Hold my heart</div>
-  <div class="progress" id="progress">0%</div>
+<div class="page active" id="p1">
+  <div class="loader">
+    <div class="heart">❤️</div>
+    <div id="percent">Hold my heart</div>
+  </div>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="p2">
-  <img class="float-img" style="top:10%;left:5%" src="https://i.pinimg.com/736x/0e/8b/f2/0e8bf26f0e6f945e8e6b8166c81c6785.jpg">
-  <img class="float-img" style="top:20%;right:5%" src="https://www.yourtango.com/sites/default/files/2020/love-quotes-55.jpg">
-  <img class="float-img" style="bottom:20%;left:10%" src="https://i.pinimg.com/736x/cb/89/fc/cb89fc9c46765731a3b6455c17725eec.jpg">
-  <img class="float-img" style="bottom:10%;right:10%" src="https://www.goodmorningquote.com/wp-content/uploads/2015/05/Cute-Short-Love-Quotes-1.jpg">
-  <button class="btn" onclick="goTo(3)">🎁 Open Gift</button>
+  <button class="center-btn" onclick="openPage(3)">🎁 Open Gift</button>
 </div>
 
 <!-- PAGE 3 -->
 <div class="page" id="p3">
-  <button class="small-btn" onclick="goTo(4)">↓ Read My Letter</button>
+  <button class="center-btn" onclick="openPage(4)">❤️ I Love You</button>
 </div>
 
 <!-- PAGE 4 -->
 <div class="page" id="p4">
-  <div class="letter">
-    My love,<br><br>
-    I don’t love you for just one reason — I love you for a million little ones.
-    The way you smile without trying, the way you care without asking, and the way
-    you make even ordinary moments feel special. With you, I feel understood,
-    supported, and truly at home. You make my days brighter and my heart calmer.
-    No matter where life takes us, I want you to know that I choose you — today,
-    tomorrow, and always. I promise to stand by you, celebrate you, and love you
-    in every version of life. You are my favorite feeling, my safest place,
-    and my forever person. ❤️
+  <div class="letter" id="letter">
+    <button class="scroll-btn" onclick="scrollDown()">↓ Read My Heart</button>
+    Aaditi,<br><br>
+    I love you for the way you make ordinary moments feel special.
+    You bring warmth, comfort, and happiness into my life without
+    even trying. With you, I feel calm, understood, and complete.
+    Every smile of yours feels like home to me. No matter what life
+    throws our way, I promise to stand by you, support you, and love
+    you endlessly. You are not just someone I love — you are the
+    reason love feels so beautiful to me. I’m always with you,
+    today, tomorrow, and forever. ❤️<br><br>
+    — Avi
   </div>
 </div>
 
-<audio id="music" loop>
-  <source src="music.mp3">
-</audio>
+</div>
 
 <script>
-let hold, progress=0;
-const prog=document.getElementById("progress");
-const music=document.getElementById("music");
+let hold=0, timer;
+const percent=document.getElementById("percent");
 
-heart.onmousedown=heart.ontouchstart=()=>{
-  music.play();
-  hold=setInterval(()=>{
-    if(progress<100){
-      progress++;
-      prog.innerText=progress+"%";
-    }else{
-      clearInterval(hold);
-      goTo(2);
+/* HOLD HEART */
+document.querySelector(".heart").onmousedown=startHold;
+document.querySelector(".heart").ontouchstart=startHold;
+
+function startHold(){
+  timer=setInterval(()=>{
+    hold++;
+    percent.innerText=hold+"%";
+    if(hold>=100){
+      clearInterval(timer);
+      openPage(2);
+      loadQuotes();
+      floatingHearts();
     }
   },40);
 }
-heart.onmouseup=heart.ontouchend=()=>clearInterval(hold);
+document.onmouseup=()=>clearInterval(timer);
+document.ontouchend=()=>clearInterval(timer);
 
-function goTo(n){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
-  document.getElementById('p'+n).classList.add('show');
-  if(n===3)loadImages();
+/* PAGE SWITCH */
+function openPage(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("p"+n).classList.add("active");
+  if(n===3)loadMemories();
 }
 
-function loadImages(){
+/* DRAG LOGIC */
+function drag(el){
+  let x,y;
+  el.onmousedown=e=>{
+    x=e.clientX;y=e.clientY;
+    document.onmousemove=m=>{
+      el.style.left=el.offsetLeft+(m.clientX-x)+"px";
+      el.style.top=el.offsetTop+(m.clientY-y)+"px";
+      x=m.clientX;y=m.clientY;
+    };
+    document.onmouseup=()=>document.onmousemove=null;
+  };
+}
+
+/* PAGE 2 IMAGES */
+function loadQuotes(){
+  const imgs=[
+    "https://i.pinimg.com/736x/0e/8b/f2/0e8bf26f0e6f945e8e6b8166c81c6785.jpg",
+    "https://www.yourtango.com/sites/default/files/2020/love-quotes-55.jpg",
+    "https://i.pinimg.com/736x/cb/89/fc/cb89fc9c46765731a3b6455c17725eec.jpg",
+    "https://www.goodmorningquote.com/wp-content/uploads/2015/05/Cute-Short-Love-Quotes-1.jpg"
+  ];
+  imgs.forEach(src=>{
+    let img=document.createElement("img");
+    img.src=src;
+    img.className="drag";
+    img.style.top="35%";
+    img.style.left="25%";
+    document.getElementById("p2").appendChild(img);
+    drag(img);
+  });
+}
+
+/* PAGE 3 IMAGES */
+function loadMemories(){
   for(let i=1;i<=11;i++){
     let img=document.createElement("img");
     img.src=i+".jpg";
-    img.className="drag-img";
-    img.style.top=Math.random()*60+"%";
-    img.style.left=Math.random()*60+"%";
+    img.className="drag";
+    img.style.top="35%";
+    img.style.left="25%";
     document.getElementById("p3").appendChild(img);
     drag(img);
   }
 }
 
-function drag(el){
-  let x,y,dx,dy;
-  el.onmousedown=e=>{
-    x=e.clientX;y=e.clientY;
-    document.onmousemove=m=>{
-      dx=m.clientX-x;dy=m.clientY-y;
-      el.style.left=el.offsetLeft+dx+"px";
-      el.style.top=el.offsetTop+dy+"px";
-      x=m.clientX;y=m.clientY;
-    }
-    document.onmouseup=()=>document.onmousemove=null;
-  }
+/* FLOATING HEARTS */
+function floatingHearts(){
+  setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="float";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"%";
+    h.style.fontSize=12+Math.random()*18+"px";
+    document.querySelector(".app").appendChild(h);
+    setTimeout(()=>h.remove(),8000);
+  },300);
+}
+
+/* LETTER SCROLL */
+function scrollDown(){
+  document.getElementById("letter")
+    .scrollTo({top:400,behavior:"smooth"});
 }
 </script>
 
