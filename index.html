@@ -3,50 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ❤️</title>
+<title>For My Love ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --pink1:#ff5f9e;
+  --pink2:#ff85c1;
+  --gold:#ffd700;
+  --white:#fff;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #ff5f9e, #ff85c1);
+  font-family: 'Poppins', sans-serif;
   color: white;
-  text-align: center;
   overflow: hidden;
+  background: linear-gradient(-45deg, #ff5f9e, #ff85c1, #ff9acb, #ff6fae);
+  background-size: 400% 400%;
+  animation: bgMove 12s ease infinite;
+}
+
+@keyframes bgMove {
+  0% {background-position:0% 50%}
+  50% {background-position:100% 50%}
+  100% {background-position:0% 50%}
 }
 
 .page {
   display: none;
   height: 100vh;
-  padding: 20px;
+  padding: 24px;
+  text-align: center;
 }
 
 .active {
   display: block;
+  animation: fadeIn 1s ease;
 }
 
-/* HEART PAGE */
-.heart {
-  font-size: 120px;
-  margin-top: 120px;
-  animation: pulse 1.5s infinite;
+@keyframes fadeIn {
+  from {opacity:0; transform:scale(0.95);}
+  to {opacity:1; transform:scale(1);}
+}
+
+/* FLOATING HEARTS */
+.heart-float {
+  position: absolute;
+  bottom: -20px;
+  font-size: 24px;
+  animation: floatUp 8s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes floatUp {
+  from {transform: translateY(0); opacity:1;}
+  to {transform: translateY(-120vh); opacity:0;}
+}
+
+/* MAIN HEART */
+.big-heart {
+  font-size: 130px;
+  margin-top: 110px;
+  animation: pulse 1.3s infinite;
+  filter: drop-shadow(0 0 25px rgba(255,255,255,0.7));
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.25); }
-  100% { transform: scale(1); }
+  0% {transform:scale(1);}
+  50% {transform:scale(1.25);}
+  100% {transform:scale(1);}
 }
 
 .progress-box {
-  width: 80%;
-  height: 14px;
-  background: rgba(255,255,255,0.4);
-  border-radius: 10px;
+  width: 85%;
+  height: 16px;
+  background: rgba(255,255,255,0.35);
+  border-radius: 20px;
   margin: 40px auto;
   overflow: hidden;
 }
@@ -54,52 +92,96 @@ body {
 .progress-fill {
   height: 100%;
   width: 0%;
-  background: white;
+  background: linear-gradient(90deg, white, gold);
+}
+
+/* TEXT */
+.title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 42px;
+  margin-top: 20px;
+}
+
+.subtitle {
+  font-size: 16px;
+  opacity: 0.9;
 }
 
 /* PHOTOS */
 .photo {
-  width: 90%;
-  max-width: 350px;
-  border-radius: 20px;
+  width: 92%;
+  max-width: 360px;
+  border-radius: 22px;
   margin-top: 40px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  animation: photoFade 0.8s ease;
 }
 
-/* BUTTONS */
+@keyframes photoFade {
+  from {opacity:0; transform:scale(0.9);}
+  to {opacity:1; transform:scale(1);}
+}
+
+/* BUTTON */
 button {
   margin-top: 30px;
-  padding: 15px 35px;
+  padding: 15px 38px;
+  border-radius: 40px;
   border: none;
-  border-radius: 30px;
-  background: gold;
+  background: linear-gradient(135deg, gold, #fff1a8);
   font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-/* GOLDEN TICKET */
+/* TICKET */
 .ticket {
-  width: 280px;
-  height: 160px;
-  background: linear-gradient(135deg, gold, #ffd700);
-  border-radius: 20px;
-  margin: 100px auto;
-  color: black;
-  font-size: 22px;
-  font-weight: bold;
+  width: 300px;
+  height: 170px;
+  margin: 90px auto;
+  background: linear-gradient(135deg, gold, #fff2a8);
+  color: #4b3500;
+  border-radius: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 26px;
+  font-weight: bold;
+  animation: shine 2s infinite;
+}
+
+@keyframes shine {
+  0% {box-shadow:0 0 10px gold;}
+  50% {box-shadow:0 0 40px gold;}
+  100% {box-shadow:0 0 10px gold;}
+}
+
+/* LOVE LETTER */
+.letter {
+  max-width: 360px;
+  margin: 40px auto;
+  background: rgba(255,255,255,0.15);
+  padding: 22px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  font-size: 16px;
+  line-height: 1.7;
 }
 </style>
 </head>
 
 <body>
 
+<audio id="music" autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
-  <div class="heart">❤️</div>
-  <h2>Hold my heart</h2>
-  <p>Don’t let go…</p>
+  <div class="big-heart">❤️</div>
+  <div class="title">Hold My Heart</div>
+  <div class="subtitle">Don’t let go…</div>
   <div class="progress-box">
     <div class="progress-fill" id="progress"></div>
   </div>
@@ -107,71 +189,93 @@ button {
 
 <!-- PAGE 2 -->
 <div class="page" id="page2">
-  <h2>We survived everything together</h2>
+  <div class="title">We Made It Together</div>
   <img id="memoryPhoto" class="photo" src="photo1.jpg">
-  <p>Tap to continue →</p>
-  <button id="giftBtn" style="display:none;">🎁 Your Gift</button>
+  <p class="subtitle">Tap the memories 💕</p>
+  <button id="giftBtn" style="display:none;">Your Gift 🎁</button>
 </div>
 
 <!-- PAGE 3 -->
 <div class="page" id="page3">
-  <div class="ticket">✨ Golden Ticket ✨</div>
-  <button onclick="showPage(4)">Reveal Gift</button>
+  <div class="ticket">Golden Ticket ✨</div>
+  <button onclick="showPage(4)">Reveal</button>
 </div>
 
 <!-- PAGE 4 -->
 <div class="page" id="page4">
-  <h2>Forever Us ❤️</h2>
+  <div class="title">A Letter For You</div>
+  <div class="letter">
+    Every hard day, every tired night, every smile and tear —  
+    I’d choose you again and again.  
+    Thank you for being my love, my peace, my home ❤️  
+  </div>
+  <button onclick="showPage(5)">Forever Us</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="page5">
+  <div class="title">Forever ♾️</div>
   <img id="finalPhoto" class="photo" src="final1.jpg">
-  <p>Tap the photo 💕</p>
+  <p class="subtitle">Tap endlessly 💖</p>
 </div>
 
 <script>
-let progress = 0;
-let holding = false;
+/* FLOATING HEARTS */
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart-float";
+  h.innerHTML = "❤️";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.fontSize = Math.random() * 20 + 16 + "px";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 8000);
+}, 500);
 
 /* HOLD HEART */
+let progress = 0, holding = false;
 document.body.addEventListener("touchstart", () => holding = true);
 document.body.addEventListener("touchend", () => holding = false);
 
 setInterval(() => {
   if (holding && progress < 100) {
-    progress += 1;
-    document.getElementById("progress").style.width = progress + "%";
+    progress++;
+    progressBar();
     if (progress === 100) showPage(2);
   }
 }, 40);
 
-/* MEMORY SLIDES */
-let memories = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg"];
-let i = 0;
+function progressBar(){
+  document.getElementById("progress").style.width = progress + "%";
+}
 
+/* MEMORY PHOTOS */
+let memories = ["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg"];
+let m = 0;
 memoryPhoto.onclick = () => {
-  i++;
-  if (i < memories.length) {
-    memoryPhoto.src = memories[i];
+  m++;
+  if (m < memories.length) {
+    memoryPhoto.src = memories[m];
   } else {
-    document.getElementById("giftBtn").style.display = "inline-block";
+    giftBtn.style.display = "inline-block";
   }
 };
-
 giftBtn.onclick = () => showPage(3);
 
 /* FINAL LOOP */
-let finals = ["final1.jpg", "final2.jpg", "final3.jpg"];
+let finals = ["final1.jpg","final2.jpg","final3.jpg"];
 let f = 0;
-
 finalPhoto.onclick = () => {
   f = (f + 1) % finals.length;
   finalPhoto.src = finals[f];
 };
 
 /* PAGE SWITCH */
-function showPage(n) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById("page" + n).classList.add("active");
+function showPage(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("page"+n).classList.add("active");
 }
 </script>
 
 </body>
 </html>
+
