@@ -3,27 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Forever ❤️</title>
+<title>For Aaditi ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --pink:#ff6fae;
-  --pink2:#ff9acb;
-  --gold:#ffd700;
-}
-
-*{box-sizing:border-box;}
-
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  color:white;
-  overflow:hidden;
   background:linear-gradient(-45deg,#ff5f9e,#ff85c1,#ff9acb,#ff6fae);
   background-size:400% 400%;
-  animation:bgMove 14s ease infinite;
+  animation:bgMove 12s ease infinite;
+  overflow:hidden;
+  color:white;
 }
 
 @keyframes bgMove{
@@ -35,272 +27,228 @@ body{
 .page{
   display:none;
   height:100vh;
-  padding:24px;
+  padding:20px;
   text-align:center;
 }
 
-.active{
-  display:block;
-  animation:fadeIn 1s ease;
-}
+.page.active{display:block;}
 
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(.95)}
-  to{opacity:1;transform:scale(1)}
-}
-
-/* FLOATING HEARTS */
-.heart-float{
-  position:absolute;
-  bottom:-20px;
-  font-size:20px;
-  opacity:.7;
-  animation:floatUp 8s linear infinite;
-}
-
-@keyframes floatUp{
-  from{transform:translateY(0);opacity:1}
-  to{transform:translateY(-120vh);opacity:0}
-}
-
-/* TITLES */
 .title{
   font-family:'Great Vibes',cursive;
-  font-size:44px;
+  font-size:46px;
   margin-top:20px;
 }
 
 .subtitle{
   font-size:16px;
   opacity:.9;
+  margin-bottom:12px;
 }
 
-/* HEART */
+/* Floating hearts */
+.heart{
+  position:absolute;
+  bottom:-20px;
+  font-size:20px;
+  opacity:.6;
+  animation:float 8s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(0)}
+  to{transform:translateY(-120vh)}
+}
+
+/* Big heart */
 .big-heart{
-  font-size:140px;
-  margin-top:120px;
-  animation:pulse 1.2s infinite;
-  filter:drop-shadow(0 0 30px rgba(255,255,255,.7));
+  font-size:130px;
+  margin-top:100px;
+  animation:pulse 1.3s infinite;
+  cursor:pointer;
 }
-
 @keyframes pulse{
   0%{transform:scale(1)}
-  50%{transform:scale(1.3)}
+  50%{transform:scale(1.25)}
   100%{transform:scale(1)}
 }
 
-.progress-box{
-  width:85%;
-  height:16px;
-  background:rgba(255,255,255,.3);
-  border-radius:20px;
-  margin:40px auto;
-  overflow:hidden;
+/* Photos area */
+#photoArea{
+  height:65vh;
+  overflow-y:auto;
+  padding-bottom:20px;
 }
 
-.progress-fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#fff,var(--gold));
-}
-
-/* DRAG PHOTOS */
-#photoStack{
-  position:relative;
-  height:70vh;
-}
-
-.drag-photo{
-  position:absolute;
-  width:85%;
+/* Individual photo */
+.photo{
+  width:90%;
   max-width:320px;
-  left:50%;
-  transform:translateX(-50%);
+  margin:18px auto;
+  display:block;
   border-radius:22px;
   box-shadow:0 20px 40px rgba(0,0,0,.35);
   cursor:grab;
+  position:relative;
+  touch-action:none;
+}
+.photo:active{cursor:grabbing}
+
+/* Gift button */
+#giftBtn{
+  margin-top:15px;
+  padding:16px 40px;
+  font-size:20px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(90deg,#ffd700,#fff1a8);
+  color:#5a3000;
+  font-weight:bold;
+  box-shadow:0 0 25px rgba(255,215,0,.9);
+  cursor:pointer;
 }
 
-.drag-photo:nth-child(1){top:40px}
-.drag-photo:nth-child(2){top:100px}
-.drag-photo:nth-child(3){top:160px}
-.drag-photo:nth-child(4){top:220px}
+/* Ticket */
+.ticket{
+  margin-top:120px;
+  padding:35px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#ffd700,#fff1a8);
+  color:#5a3000;
+  font-size:28px;
+  font-family:'Great Vibes',cursive;
+}
 
-/* BUTTON */
-button{
+/* Reveal button */
+.revealBtn{
   margin-top:30px;
-  padding:16px 40px;
+  padding:14px 36px;
+  font-size:18px;
   border:none;
   border-radius:40px;
-  font-size:18px;
-  font-weight:bold;
-  background:linear-gradient(135deg,var(--gold),#fff1a8);
+  background:#ff5f9e;
+  color:white;
   cursor:pointer;
-  box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
-/* GOLDEN TICKET */
-.ticket{
-  width:300px;
-  height:170px;
-  margin:90px auto;
-  background:linear-gradient(135deg,var(--gold),#fff2a8);
-  color:#4b3500;
-  border-radius:22px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:26px;
-  font-weight:bold;
-  animation:shine 2s infinite;
-}
-
-@keyframes shine{
-  0%{box-shadow:0 0 10px gold}
-  50%{box-shadow:0 0 40px gold}
-  100%{box-shadow:0 0 10px gold}
-}
-
-/* LOVE LETTER */
-.letter{
-  max-width:360px;
+/* Final slider */
+#finalSlider{
+  width:90%;
+  max-width:340px;
   margin:40px auto;
-  padding:22px;
-  border-radius:20px;
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(10px);
-  line-height:1.7;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 25px 50px rgba(0,0,0,.4);
 }
+#finalSlider img{width:100%}
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop autoplay>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-
 <!-- PAGE 1 -->
-<div class="page active" id="page1">
-  <div class="big-heart">❤️</div>
-  <div class="title">Hold My Heart</div>
-  <div class="subtitle">Don’t let go…</div>
-  <div class="progress-box">
-    <div class="progress-fill" id="progress"></div>
-  </div>
+<div class="page active" id="p1">
+  <div class="title">Aaditi ❤️</div>
+  <div class="subtitle">From Avi, with all my heart</div>
+  <div class="big-heart" id="startHeart">❤️</div>
+  <div class="subtitle">Tap the heart</div>
 </div>
 
 <!-- PAGE 2 -->
-<div class="page" id="page2">
-  <div class="title">Every Memory Matters</div>
-  <p class="subtitle">Move them anywhere 💕</p>
+<div class="page" id="p2">
+  <div class="title">Our Memories 💕</div>
+  <div class="subtitle">Slide each photo anywhere</div>
 
-  <div id="photoStack">
-    <img class="drag-photo" src="photo1.jpg">
-    <img class="drag-photo" src="photo2.jpg">
-    <img class="drag-photo" src="photo3.jpg">
-    <img class="drag-photo" src="photo4.jpg">
-  </div>
+  <div id="photoArea"></div>
 
-  <button id="giftBtn" style="display:none;">🎁 I Found Something</button>
+  <button id="giftBtn">🎁 A Gift For You</button>
 </div>
 
 <!-- PAGE 3 -->
-<div class="page" id="page3">
-  <div class="ticket">Golden Ticket ✨</div>
-  <button onclick="showPage(4)">Reveal</button>
+<div class="page" id="p3">
+  <div class="ticket">A Golden Ticket For Us ✨</div>
+  <button class="revealBtn" onclick="openFinal()">Reveal Surprise</button>
 </div>
 
 <!-- PAGE 4 -->
-<div class="page" id="page4">
-  <div class="title">For You</div>
-  <div class="letter">
-    Through stress, silence, chaos, smiles and tears —  
-    I would still choose you.  
-    Thank you for staying, loving, believing.  
-    You are my forever ❤️
+<div class="page" id="p4">
+  <div class="title">Us. Always. ❤️</div>
+  <div id="finalSlider">
+    <img id="slideImg" src="1.jpg">
   </div>
-  <button onclick="showPage(5)">Forever</button>
 </div>
 
-<!-- PAGE 5 -->
-<div class="page" id="page5">
-  <div class="title">Us ♾️</div>
-  <img id="finalPhoto" class="drag-photo" style="position:relative;top:60px" src="final1.jpg">
-  <p class="subtitle">It never ends 💖</p>
-</div>
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-/* FLOATING HEARTS */
-setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart-float";
+/* Floating hearts */
+for(let i=0;i<25;i++){
+  let h=document.createElement("div");
+  h.className="heart";
   h.innerHTML="❤️";
   h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(16+Math.random()*20)+"px";
+  h.style.animationDuration=6+Math.random()*6+"s";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),8000);
-},500);
+}
 
-/* HOLD HEART */
-let progress=0,holding=false;
-document.body.addEventListener("touchstart",()=>holding=true);
-document.body.addEventListener("touchend",()=>holding=false);
-
-setInterval(()=>{
-  if(holding && progress<100){
-    progress++;
-    document.getElementById("progress").style.width=progress+"%";
-    if(progress===100) showPage(2);
-  }
-},40);
-
-/* DRAG PHOTOS */
-const photos=document.querySelectorAll(".drag-photo");
-let moved=new Set();
-
-photos.forEach(p=>{
-  let ox=0,oy=0,drag=false;
-  p.addEventListener("touchstart",e=>{
-    drag=true;
-    const t=e.touches[0];
-    const r=p.getBoundingClientRect();
-    ox=t.clientX-r.left;
-    oy=t.clientY-r.top;
-  });
-  p.addEventListener("touchmove",e=>{
-    if(!drag)return;
-    const t=e.touches[0];
-    p.style.left=(t.clientX-ox)+"px";
-    p.style.top=(t.clientY-oy)+"px";
-    p.style.transform="none";
-  });
-  p.addEventListener("touchend",()=>{
-    drag=false;
-    moved.add(p);
-    if(moved.size>=4){
-      document.getElementById("giftBtn").style.display="inline-block";
-    }
-  });
-});
-
-giftBtn.onclick=()=>showPage(3);
-
-/* FINAL LOOP */
-let finals=["final1.jpg","final2.jpg","final3.jpg"];
-let f=0;
-finalPhoto.onclick=()=>{
-  f=(f+1)%finals.length;
-  finalPhoto.src=finals[f];
+/* Start experience */
+document.getElementById("startHeart").onclick = () => {
+  showPage(2);
+  document.getElementById("bgMusic").play();
 };
 
-/* PAGE SWITCH */
+/* Load photos */
+const area = document.getElementById("photoArea");
+for(let i=1;i<=11;i++){
+  let img=document.createElement("img");
+  img.src = i + ".jpg";
+  img.className="photo";
+  area.appendChild(img);
+  makeDraggable(img);
+}
+
+/* Drag logic */
+function makeDraggable(el){
+  let offsetX=0, offsetY=0, dragging=false;
+
+  el.addEventListener("pointerdown", e=>{
+    dragging=true;
+    offsetX = e.clientX - el.offsetLeft;
+    offsetY = e.clientY - el.offsetTop;
+    el.style.position="absolute";
+    el.style.zIndex=1000;
+    el.setPointerCapture(e.pointerId);
+  });
+
+  el.addEventListener("pointermove", e=>{
+    if(!dragging) return;
+    el.style.left = (e.clientX - offsetX) + "px";
+    el.style.top  = (e.clientY - offsetY) + "px";
+  });
+
+  el.addEventListener("pointerup", ()=> dragging=false);
+}
+
+/* Gift button */
+document.getElementById("giftBtn").onclick = () => showPage(3);
+
+/* Final slider */
+let idx=1;
+function openFinal(){
+  showPage(4);
+  setInterval(()=>{
+    idx++;
+    if(idx>11) idx=1;
+    document.getElementById("slideImg").src = idx + ".jpg";
+  },2500);
+}
+
+/* Page switch */
 function showPage(n){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById("page"+n).classList.add("active");
+  document.getElementById("p"+n).classList.add("active");
 }
 </script>
-
 </body>
 </html>
-
