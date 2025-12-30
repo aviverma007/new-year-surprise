@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff5f9e, #ff85c1);
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+.page {
+  display: none;
+  height: 100vh;
+  padding: 20px;
+}
+
+.active {
+  display: block;
+}
+
+/* HEART PAGE */
+.heart {
+  font-size: 120px;
+  margin-top: 120px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.progress-box {
+  width: 80%;
+  height: 14px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 10px;
+  margin: 40px auto;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: white;
+}
+
+/* PHOTOS */
+.photo {
+  width: 90%;
+  max-width: 350px;
+  border-radius: 20px;
+  margin-top: 40px;
+}
+
+/* BUTTONS */
+button {
+  margin-top: 30px;
+  padding: 15px 35px;
+  border: none;
+  border-radius: 30px;
+  background: gold;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* GOLDEN TICKET */
+.ticket {
+  width: 280px;
+  height: 160px;
+  background: linear-gradient(135deg, gold, #ffd700);
+  border-radius: 20px;
+  margin: 100px auto;
+  color: black;
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <div class="heart">❤️</div>
+  <h2>Hold my heart</h2>
+  <p>Don’t let go…</p>
+  <div class="progress-box">
+    <div class="progress-fill" id="progress"></div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <h2>We survived everything together</h2>
+  <img id="memoryPhoto" class="photo" src="photo1.jpg">
+  <p>Tap to continue →</p>
+  <button id="giftBtn" style="display:none;">🎁 Your Gift</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <div class="ticket">✨ Golden Ticket ✨</div>
+  <button onclick="showPage(4)">Reveal Gift</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+  <h2>Forever Us ❤️</h2>
+  <img id="finalPhoto" class="photo" src="final1.jpg">
+  <p>Tap the photo 💕</p>
+</div>
+
+<script>
+let progress = 0;
+let holding = false;
+
+/* HOLD HEART */
+document.body.addEventListener("touchstart", () => holding = true);
+document.body.addEventListener("touchend", () => holding = false);
+
+setInterval(() => {
+  if (holding && progress < 100) {
+    progress += 1;
+    document.getElementById("progress").style.width = progress + "%";
+    if (progress === 100) showPage(2);
+  }
+}, 40);
+
+/* MEMORY SLIDES */
+let memories = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg"];
+let i = 0;
+
+memoryPhoto.onclick = () => {
+  i++;
+  if (i < memories.length) {
+    memoryPhoto.src = memories[i];
+  } else {
+    document.getElementById("giftBtn").style.display = "inline-block";
+  }
+};
+
+giftBtn.onclick = () => showPage(3);
+
+/* FINAL LOOP */
+let finals = ["final1.jpg", "final2.jpg", "final3.jpg"];
+let f = 0;
+
+finalPhoto.onclick = () => {
+  f = (f + 1) % finals.length;
+  finalPhoto.src = finals[f];
+};
+
+/* PAGE SWITCH */
+function showPage(n) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById("page" + n).classList.add("active");
+}
+</script>
+
+</body>
+</html>
